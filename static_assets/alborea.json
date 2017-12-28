@@ -1,0 +1,144 @@
+{
+  "nav_icon": "nav_icon.png",
+  "firstPhotoId": "112362",
+  "firstPhotoRotation": 150,
+  "soundEffects": {
+    "navButton": {
+      "onEnter": {
+        "uri": "switch-flip.wav",
+        "attributionUri": "https://www.freesound.org/people/ianstargem/sounds/278205/"
+      },
+      "onClick": {
+        "uri": "menu-click.wav",
+        "attributionUri": "https://www.freesound.org/people/fins/sounds/146721/"
+      }
+    },
+    "infoButton": {
+      "onEnter": {
+        "uri": "switch-flip.wav",
+        "attributionUri": "https://www.freesound.org/people/ianstargem/sounds/278205/"
+      }
+    },
+    "ambient": {
+      "uri": "cafe.wav",
+      "attributionUri": "https://www.freesound.org/people/PapercutterJohn/sounds/322031/",
+      "loop": true,
+      "volume": 0.0
+    }
+  },
+  "photos": {
+    "112362": {
+      "rotationOffset": 0,
+      "uri": "plaza_alborea.jpg",
+      "tooltips": [
+        {
+          "text": "Frontón y Colegio",
+          "rotationY": 180.525,
+          "linkedPhotoId": "112379"
+        },
+        {
+          "text": "Iglesia",
+          "rotationY": -100.525,
+          "linkedPhotoId": "112380"
+        },
+        {
+          "text": "Ocean y estanco",
+          "rotationY": -10.525,
+          "linkedPhotoId": "112381"
+        },
+        {
+          "type": "panelimage",
+          "rotationY": 50,
+          "width": 1.280,
+          "height": 0.850,
+          "source": "ayuntamiento.jpg",
+          "text": "Ayuntamiento de Alborea",
+          "attribution": "Photo by google",
+          "attributionUri": ""
+        },
+        {
+          "type": "panelimage",
+          "rotationY": -90,
+          "width": 1.280,
+          "height": 0.850,
+          "source": "canas_tapas.jpg",
+          "text": "Café Café",
+          "attribution": "Photo by google",
+          "attributionUri": ""
+        },
+        {
+          "type": "panelimage",
+          "rotationY": -130,
+          "width": 1.280,
+          "height": 1.450,
+          "source": "martinez.jpg",
+          "text": "Comercial Martinez",
+          "attribution": "foto by jorge_albore",
+          "attributionUri": ""
+        },
+        {
+          "type": "panelimage",
+          "rotationY": 160,
+          "width": 1.280,
+          "height": 0.850,
+          "source": "parque.jpg",
+          "text": "Parque",
+          "attribution": "Photo by google",
+          "attributionUri": ""
+        },
+        {
+          "type": "panelimage",
+          "rotationY": 115,
+          "width": 1.280,
+          "height": 0.850,
+          "source": "canas_tapas.jpg",
+          "text": "Bar nuevo",
+          "attribution": "Photo by google",
+          "attributionUri": ""
+        }
+      ]
+    },
+    "112379": {
+      "rotationOffset": -150,
+      "uri": "fronton.jpg",
+      "tooltips": [
+        {
+          "text": "Plaza",
+          "rotationY": 190.525,
+          "linkedPhotoId": "112362"
+        }
+      ]
+    },
+    "112380": {
+      "rotationOffset": -150,
+      "uri": "iglesia.jpg",
+      "tooltips": [
+        {
+          "text": "Plaza",
+          "rotationY": 180.525,
+          "linkedPhotoId": "112362"
+        }
+      ]
+    },
+    "112381": {
+      "rotationOffset": 160.525,
+      "uri": "oceanestanco.jpg",
+      "tooltips": [
+        {
+          "text": "Plaza",
+          "rotationY": 180.525,
+          "linkedPhotoId": "112362"
+        },
+        {
+          "type": "video",
+          "rotationY": 120.525,
+          "width": 2.560,
+          "height": 1.240,
+          "source":"Three-Cocktails.webm",
+          "text": "Ocean Café Bar y Copas",
+          "muted":true
+        }
+      ]
+    }
+  }
+}
