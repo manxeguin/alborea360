@@ -1,6 +1,6 @@
 {
   "nav_icon": "nav_icon.png",
-  "firstPhotoId": "112362",
+  "firstPhotoId": "1111111",
   "firstPhotoRotation": 150,
   "soundEffects": {
     "navButton": {
@@ -138,6 +138,12 @@
           "text": "Ocean Café Bar y Copas",
           "muted":true
         }
+      ]
+    },
+    "1111111": {
+      "rotationOffset": 160.525,
+      "uri": "casa.jpg",
+      "tooltips": [
       ]
     }
   }

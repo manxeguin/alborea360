@@ -77,35 +77,19 @@ class NavButton extends React.Component {
     return (
       <VrButton
         style={{
-          flexDirection: 'row',
+          flexDirection: 'column',
           layoutOrigin: [0.5, 0.5],
           position: 'absolute',
+          alignItems: 'center',
           transform: [
             {rotateY: this.props.rotateY},
-            {translateZ: this.props.translateZ},
+            {translateZ: this.props.translateZ || -3},
+            {translateY: this.props.translateY || 0},
+            {translateX: this.props.translateX || 0},
           ],
         }}
         onClick={() => this._selected()}
-        onEnter={() => {
-          if (!this.props.isLoading) {
-            this.setState({hasFocus: true});
-            const id = setTimeout(() => {
-              VrSoundEffects.play(this.props.onClickSound);
-              this._selected();
-            }, this.props.delay);
-            this.state.lastTimeoutId = id;
-            this._startFill();
-          }
-        }}
-        onExit={() => {
-          this.setState({hasFocus: false});
-          clearTimeout(this.state.lastTimeoutId);
-          this.state.lastTimeoutId = 0;
-          this._removeFill();
-        }}
         onClickSound={this.props.onClickSound}
-        onEnterSound={this.props.onEnterSound}
-        onExitSound={this.props.onExitSound}
         onLongClickSound={this.props.onLongClickSound}
       >
         <View
@@ -119,6 +103,25 @@ class NavButton extends React.Component {
             justifyContent: 'center',
             width: this.props.outerWidth,
           }}
+          onEnter={() => {
+            if (!this.props.isLoading) {
+              this.setState({hasFocus: true});
+              const id = setTimeout(() => {
+                VrSoundEffects.play(this.props.onClickSound);
+                this._selected();
+              }, this.props.delay);
+              this.state.lastTimeoutId = id;
+              this._startFill();
+            }
+          }}
+          onExit={() => {
+            this.setState({hasFocus: false});
+            clearTimeout(this.state.lastTimeoutId);
+            this.state.lastTimeoutId = 0;
+            this._removeFill();
+          }}
+          onEnterSound={this.props.onEnterSound}
+          onExitSound={this.props.onExitSound}
         >
           {!this.props.isLoading &&
             <View>
@@ -138,6 +141,9 @@ class NavButton extends React.Component {
                 style={{
                   height: this.props.innerWidth,
                   width: this.props.innerWidth,
+                  transform: [
+                    {rotateZ: 90},
+                  ],
                 }}
                 source={this.props.source}
               />
@@ -147,19 +153,18 @@ class NavButton extends React.Component {
             <LoadingSpinner />
           }
         </View>
-        { this.state.hasFocus &&
+        { 
           <Text
             style={{
-              backgroundColor: 'black',
               color: 'white',
               fontSize: this.props.height * 0.7,
               height: this.props.height,
               marginLeft: 0.05,
-              marginTop: (this.props.outerWidth - this.props.innerWidth) / 2,
+              marginTop: 0,
               padding: 0.1,
-              left: this.props.outerWidth + 0.05,
+              left: 0.05,
               textAlign: 'center',
-              textAlignVertical: 'auto',
+              textAlignVertical: 'top',
           }}>
             {this.props.textLabel}
           </Text>

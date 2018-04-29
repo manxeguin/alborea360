@@ -5,11 +5,24 @@ import {
   Pano,
   Text,
   View,
+  Model,
+  Animated
 } from 'react-vr';
+import * as firebase from 'firebase'
 
 import InfoButton from './components/InfoButton';
 import NavButton from './components/NavButton';
 import LoadingSpinner from './components/LoadingSpinner';
+
+const config = {
+  apiKey: "AIzaSyB22qYYZryQTPRT7iTDg-XLTZ4yWQ2meXM",
+  authDomain: "alborea-7ecf0.firebaseapp.com",
+  databaseURL: "https://alborea-7ecf0.firebaseio.com",
+  projectId: "alborea-7ecf0",
+  storageBucket: "",
+  messagingSenderId: "1001756488203",
+  firebaseTour: true
+};
 
 export default class alborea360 extends React.Component {
   
@@ -30,22 +43,34 @@ export default class alborea360 extends React.Component {
   }
 
   componentDidMount() {
-    fetch(asset(this.props.tourSource).uri)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.init(responseData);
-      })
-      .done();
+    this.init(config);
   }
 
-  init(tourConfig) {
-    this.setState({
+  init(config) {
+    let tourPromise;
+    if (config.firebaseTour) {
+      firebase.initializeApp(config);
+      tourPromise = firebase.database().ref().once('value').then(function(snapshot) {
+        return snapshot.val()
+      });
+    } else {
+      tourPromise = fetch(asset(this.props.tourSource).uri)
+      .then((response) => response.json());
+    }
+    tourPromise.then((tourConfig) => this.setState({
       data: tourConfig,
       locationId: null,
       nextLocationId: tourConfig.firstPhotoId,
       rotation: tourConfig.firstPhotoRotation +
         (tourConfig.photos[tourConfig.firstPhotoId].rotationOffset || 0),
-    });
+    }))
+    
+  }
+
+  getPanoAsset(url) {
+    return config.firebaseTour ? {
+      uri: url
+    } : asset(url);
   }
 
   render() {
@@ -61,7 +86,7 @@ export default class alborea360 extends React.Component {
     const isLoading = this.state.nextLocationId !== this.state.locationId;
     const soundEffects = this.state.data.soundEffects;
     const ambient = this.state.data.soundEffects.ambient;
-
+    // const AnimatedModel = Animated.createAnimatedComponent(Model);
     return (
 
       <View>
@@ -76,18 +101,33 @@ export default class alborea360 extends React.Component {
                 locationId: this.state.nextLocationId,
               });
             }}
-            source={asset(this.state.data.photos[this.state.nextLocationId].uri)}
+            source={this.getPanoAsset(this.state.data.photos[this.state.nextLocationId].uri)}
           />
+          {/* <AnimatedModel
+            source={{
+              obj: asset('KTM.obj')
+            }}
+            style={{
+              transform: [
+                {rotateZ : 0},
+                {translate: [100, -100, 300]},
+                {scale : 0.12 },
+              ]
+            }}
+            wireframe={false}
+          /> */}
           {tooltips && tooltips.map((tooltip, index) => {
             if (tooltip.type) {
               return(
                 <InfoButton
-                  key={index}
-                  onEnterSound={asset(soundEffects.navButton.onEnter.uri)}
-                  rotateY={tooltip.rotationY}
-                  source={asset('info_icon.png')}
-                  tooltip={tooltip}
-                  translateZ={this.translateZ}
+                  key = { index }
+                  onEnterSound = { asset(soundEffects.navButton.onEnter.uri) }
+                  rotateY = { tooltip.rotationY }
+                  source = { asset('info_icon.png') }
+                  tooltip = { tooltip }
+                  translateZ = { tooltip.translateZ }
+                  translateY = { tooltip.translateY }
+                  translateX = { tooltip.translateX }
                 />
               );
             }
@@ -103,7 +143,9 @@ export default class alborea360 extends React.Component {
                 rotateY={tooltip.rotationY}
                 source={asset(this.state.data.nav_icon)}
                 textLabel={tooltip.text}
-                translateZ={this.translateZ}
+                translateZ={tooltip.translateZ}
+                translateY={tooltip.translateY}
+                translateX={tooltip.translateX}
               />
             );
           })}
